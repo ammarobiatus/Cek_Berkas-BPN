@@ -1,416 +1,589 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cek Berkas Pengukuran | Gercep Kota Bitung</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-        scroll-behavior: smooth;
-      }
-      .step-line {
-        height: 2px;
-        background-color: #e5e7eb;
-        flex-grow: 1;
-        margin: 0 10px;
-      }
-      .step-line.active {
-        background-color: #0056b3;
-      }
-      /* Custom Blue for PRD */
-      .bg-primary-blue {
-        background-color: #0056b3;
-      }
-      .text-primary-blue {
-        color: #0056b3;
-      }
-      .border-primary-blue {
-        border-color: #0056b3;
-      }
-    </style>
-  </head>
-  <body class="bg-gray-50 text-gray-800">
-    <header class="bg-white border-b sticky top-0 z-50">
-      <div
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <div class="flex items-center space-x-2">
-          <i data-lucide="map-pin" class="text-primary-blue w-8 h-8"></i>
-          <span class="font-bold text-2xl tracking-tight text-primary-blue"
-            >Cek Berkas</span
-          >
-        </div>
-        <nav class="hidden md:flex space-x-8 font-medium">
-          <a href="#" class="hover:text-primary-blue transition">Home</a>
-          <a href="#cara-cek" class="hover:text-primary-blue transition"
-            >Cara Cek</a
-          >
-          <a href="#bantuan" class="hover:text-primary-blue transition"
-            >Bantuan</a
-          >
-        </nav>
-      </div>
-    </header>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cek Berkas Pengukuran | Gercep Kota Bitung</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Berkas Pengukuran | Beranda & Layanan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: "Inter", sans-serif; scroll-behavior: smooth; }
+        .bg-primary-blue { background-color: #0056b3; }
+        .text-primary-blue { color: #0056b3; }
+        .border-primary-blue { border-color: #0056b3; }
+        
+        .step-line { height: 2px; background-color: #e5e7eb; flex-grow: 1; margin: 0 10px; }
+        .step-line.active { background-color: #0056b3; }
+        
+        #resultSection { transition: all 0.5s ease-in-out; }
+        :root {
+            --primary-blue: #0056b3;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .bg-primary-blue { background-color: var(--primary-blue); }
+        .text-primary-blue { color: var(--primary-blue); }
+        .border-primary-blue { border-color: var(--primary-blue); }
+        .hover-bg-blue:hover { background-color: #004494; }
 
-    <section class="bg-primary-blue text-white py-20 px-6">
-      <div class="container mx-auto text-center max-w-4xl">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">
-          Lacak Berkas Pengukuran Anda
-        </h1>
-        <p class="text-lg md:text-xl opacity-90 mb-10">
-          Layanan transparansi untuk melacak posisi berkas, petugas ukur, hingga
-          kendala lapangan secara real-time.
-        </p>
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.02); }
+        #resultSection {
+            transition: all 0.5s ease-in-out;
+        }
 
-        <div
-          class="bg-white p-2 rounded-full shadow-2xl flex flex-col md:flex-row max-w-2xl mx-auto overflow-hidden"
-        >
-          <input
-            id="berkasInput"
-            type="text"
-            placeholder="Masukkan Nomor Berkas (Contoh: 123/2024)"
-            class="flex-grow px-6 py-4 text-gray-700 outline-none rounded-full"
-          />
-          <button
-            onclick="handleSearch()"
-            id="btnCari"
-            class="bg-primary-blue hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold transition flex items-center justify-center space-x-2"
-          >
-            <i data-lucide="search" class="w-5 h-5"></i>
-            <span>Cari Berkas</span>
-          </button>
-        </div>
-        <p id="errorText" class="text-red-300 mt-4 text-sm hidden">
-          Nomor berkas tidak ditemukan atau salah input.
-        </p>
-      </div>
-    </section>
+        .step-line {
+            height: 2px;
+            background-color: #e5e7eb;
+            flex-grow: 1;
+            margin: 0 10px;
+        }
+        .step-line.active {
+            background-color: var(--primary-blue);
+        }
 
-    <section id="resultSection" class="py-16 px-6 bg-white hidden">
-      <div class="container mx-auto max-w-5xl border rounded-2xl p-8 shadow-sm">
-        <div
-          class="flex flex-col md:flex-row justify-between items-start mb-10 border-b pb-6"
-        >
-          <div>
-            <h2
-              class="text-xs font-semibold uppercase tracking-wider text-gray-400"
-            >
-              Nama Pemohon
-            </h2>
-            <p id="displayNama" class="text-2xl font-bold text-primary-blue">
-              -
-            </p>
-            <p id="displayNomor" class="text-sm text-gray-400 mt-1 italic"></p>
-          </div>
-          <div
-            class="mt-4 md:mt-0 p-4 bg-blue-50 rounded-xl border border-blue-100 text-left md:text-right"
-          >
-            <p class="text-xs text-gray-500 uppercase">
-              Posisi Berkas Saat Ini:
-            </p>
-            <p id="displayPosisi" class="text-lg font-bold text-blue-800">-</p>
-          </div>
-        </div>
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-blue);
+        }
+        .animate-pulse-slow { animation: pulse-slow 4s infinite; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<body class="bg-white text-gray-800">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <p class="text-xs text-gray-400 font-bold uppercase">Kelurahan</p>
-            <p id="displayKelurahan" class="font-semibold">-</p>
-          </div>
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <p class="text-xs text-gray-400 font-bold uppercase">
-              Jenis Layanan
-            </p>
-            <p id="displayLayanan" class="font-semibold">-</p>
-          </div>
-          <div class="bg-gray-50 p-4 rounded-lg">
-            <p class="text-xs text-gray-400 font-bold uppercase">
-              Estimasi Selesai
-            </p>
-            <p id="displayEstimasi" class="font-semibold text-orange-600">-</p>
-          </div>
-        </div>
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Logo_BPN-Kementerian_ATR_%282017%29.png" alt="Logo" class="h-10 w-auto">
+                <!-- Mini Logo Placeholder -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Logo_BPN-Kementerian_ATR_%282017%29.png" alt="Logo BPN" class="h-10 w-auto">
+                <div class="flex flex-col">
+                    <span class="font-bold text-lg leading-none text-primary-blue uppercase">Cek Berkas</span>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">Gercep Kota Bitung</span>
+                    <span class="font-bold text-lg leading-none text-primary-blue uppercase">Sistem Berkas</span>
+                    <span class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">Pengukuran Tanah</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-8 font-semibold text-sm">
+                <a href="#beranda" class="hover:text-primary-blue transition">BERANDA</a>
+                <a href="#layanan" class="hover:text-primary-blue transition">CARA CEK</a>
+                <a href="#layanan" class="hover:text-primary-blue transition">LAYANAN PENCARIAN</a>
+                <a href="#cara-cek" class="hover:text-primary-blue transition">CARA CEK</a>
+                <a href="#bantuan" class="hover:text-primary-blue transition">BANTUAN</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobileMenuBtn"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </header>
 
-        <div
-          class="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 relative mb-12"
-        >
-          <div class="flex flex-col items-center text-center w-full md:w-1/3">
-            <div
-              class="w-12 h-12 rounded-full border-4 flex items-center justify-center bg-primary-blue border-primary-blue text-white mb-3"
-            >
-              <i data-lucide="clipboard-check" class="w-6 h-6"></i>
-            </div>
-            <h3 class="font-bold text-sm">Pendaftaran</h3>
-            <p class="text-[10px] text-gray-500">Berkas Diterima</p>
-          </div>
+    <section id="beranda" class="relative overflow-hidden bg-[#F8F9FA] py-16 lg:py-20">
+    <!-- SECTION 1: BERANDA (HOME) -->
+    <section id="beranda" class="relative overflow-hidden bg-[#F8F9FA] py-16 lg:py-24">
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+                    Lacak Berkas <span class="text-primary-blue">Pengukuran Anda</span> Secara Real-Time.
+                    Pantau Status <span class="text-primary-blue text-nowrap">Berkas Pengukuran</span> Secara Transparan.
+                </h1>
+                <p class="text-lg text-gray-600 mb-10 leading-relaxed">
+                    Layanan transparansi untuk memantau posisi berkas, informasi petugas ukur, hingga kendala lapangan secara mandiri dan akurat.
+                    Akses informasi posisi berkas Anda secara real-time. Kami berkomitmen memberikan layanan pertanahan yang cepat, akurat, dan dapat dipercaya.
+                </p>
+                <div class="bg-white p-2 rounded-xl shadow-xl flex flex-col md:flex-row gap-2 border border-gray-100">
+                    <input 
+                        id="berkasInput" 
+                        type="text" 
+                        placeholder="Masukkan No. Berkas (Contoh: 123/2024)" 
+                        class="flex-grow px-6 py-4 outline-none rounded-lg text-lg font-medium"
+                    />
+                    <button 
+                        onclick="handleSearch()" 
+                        id="btnCari"
+                        class="bg-primary-blue hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold transition flex items-center justify-center space-x-2"
+                    >
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                        <span>Cari Berkas</span>
+                    </button>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#layanan" class="bg-primary-blue text-white px-8 py-4 rounded-lg font-bold hover-bg-blue transition shadow-md">
+                        Mulai Pencarian
+                    </a>
+                    <a href="#cara-cek" class="bg-white border-2 border-primary-blue text-primary-blue px-8 py-4 rounded-lg font-bold hover:bg-blue-50 transition">
+                        Cara Penggunaan
+                    </a>
+                </div>
+                <p id="errorText" class="text-red-500 mt-4 text-sm font-semibold hidden flex items-center gap-2">
+                    <i data-lucide="alert-circle" class="w-4 h-4"></i> Nomor berkas tidak ditemukan atau salah input.
+                </p>
+            </div>
+            <div class="hidden md:flex justify-center items-center">
+            <div class="relative flex justify-center items-center">
+                <!-- Logo BPN Besar sebagai Visual Utama -->
+                <div class="bg-white p-12 rounded-full shadow-2xl border-8 border-blue-50 animate-pulse-slow">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Logo_BPN-Kementerian_ATR_%282017%29.png" alt="BPN" class="w-48 h-auto">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Logo_BPN-Kementerian_ATR_%282017%29.png" alt="Kementerian ATR BPN" class="w-48 md:w-64 h-auto drop-shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
 
-          <div class="hidden md:block step-line active"></div>
+    <section id="resultSection" class="py-16 px-6 bg-white hidden opacity-0 translate-y-4">
+        <div class="container mx-auto max-w-5xl">
+            <div class="border-2 border-blue-50 rounded-2xl p-8 shadow-2xl bg-white">
 
-          <div class="flex flex-col items-center text-center w-full md:w-1/3">
-            <div
-              id="iconUkur"
-              class="w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3"
-            >
-              <i data-lucide="map" class="w-6 h-6"></i>
-            </div>
-            <h3 class="font-bold text-sm">Jadwal Pengukuran</h3>
-            <p id="tglUkur" class="text-[10px] text-gray-500">-</p>
-          </div>
+                <div class="flex flex-col md:flex-row justify-between items-start mb-10 border-b pb-6 gap-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-primary-blue uppercase tracking-widest">Informasi Pemohon</span>
+                        <h2 id="displayNama" class="text-3xl font-black text-gray-900 mt-1">-</h2>
+                        <p id="displayNomor" class="text-sm text-gray-400 mt-1 font-medium italic"></p>
+                <!-- Floating Info Card -->
+                <div class="absolute -bottom-4 right-0 md:right-10 bg-white p-4 rounded-xl shadow-xl border flex items-center space-x-3">
+                    <div class="p-2 bg-blue-100 rounded-full text-primary-blue">
+                        <i data-lucide="check-circle" class="w-6 h-6"></i>
+                    </div>
+                    <div class="p-4 bg-blue-50 rounded-xl border border-blue-100 text-left md:text-right w-full md:w-auto">
+                        <p class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">Posisi Berkas Saat Ini:</p>
+                        <p id="displayPosisi" class="text-lg font-bold text-blue-800">-</p>
+                    <div>
+                        <p class="text-xs font-bold text-gray-400 uppercase italic">Layanan Resmi</p>
+                        <p class="font-bold text-sm">Terintegrasi Sistem Pusat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-          <div id="line2" class="hidden md:block step-line"></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">Kelurahan</p>
+                        <p id="displayKelurahan" class="font-bold text-gray-700">-</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">Jenis Layanan</p>
+                        <p id="displayLayanan" class="font-bold text-gray-700">-</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">Estimasi Selesai</p>
+                        <p id="displayEstimasi" class="font-bold text-orange-600">-</p>
+    <!-- SECTION 2: LAYANAN PENCARIAN -->
+    <section id="layanan" class="py-24 px-6 bg-white">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-3xl font-bold mb-4 text-gray-900 uppercase tracking-tight">Layanan Pencarian Berkas</h2>
+            <div class="w-20 h-1.5 bg-primary-blue mx-auto mb-10"></div>
+            <p class="text-gray-500 mb-12">Silakan masukkan nomor berkas pendaftaran Anda yang tertera pada tanda terima.</p>
+            
+            <div class="bg-gray-50 p-6 md:p-8 rounded-2xl border shadow-sm">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="relative flex-grow">
+                        <i data-lucide="file-text" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+                        <input 
+                            id="berkasInput"
+                            type="text" 
+                            placeholder="Nomor Berkas (Contoh: 123/2024)" 
+                            class="w-full pl-12 pr-6 py-4 rounded-lg border-2 border-gray-200 focus:border-primary-blue outline-none transition uppercase font-semibold"
+                        >
+                    </div>
+                    <button 
+                        onclick="handleSearch()"
+                        class="bg-primary-blue text-white px-10 py-4 rounded-lg font-bold hover-bg-blue transition flex items-center justify-center space-x-2 shadow-lg"
+                    >
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                        <span>CARI STATUS</span>
+                    </button>
+                </div>
+                <p id="errorText" class="text-red-500 mt-4 text-sm font-semibold hidden flex items-center justify-center gap-2">
+                    <i data-lucide="alert-circle" class="w-4 h-4"></i> Nomor berkas tidak valid. Gunakan format alfanumerik.
+                </p>
+            </div>
 
-          <div class="flex flex-col items-center text-center w-full md:w-1/3">
-            <div
-              id="iconSelesai"
-              class="w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3"
-            >
-              <i data-lucide="check-circle" class="w-6 h-6"></i>
-            </div>
-            <h3 class="font-bold text-sm text-gray-400">Hasil Akhir</h3>
-            <p id="displayHasil" class="text-[10px] text-gray-400">-</p>
-          </div>
-        </div>
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 relative mb-12 px-4">
+                    <div class="flex flex-col items-center text-center w-full md:w-1/3">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center bg-primary-blue text-white mb-3 shadow-lg">
+                            <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+            <!-- Hasil Pencarian -->
+            <div id="resultSection" class="mt-12 text-left hidden opacity-0 translate-y-4 transition-all duration-500">
+                <div class="border-2 border-blue-100 rounded-2xl p-8 bg-white shadow-xl">
+                    <div class="flex justify-between items-start mb-10 border-b-2 border-dashed pb-6">
+                        <div>
+                            <span class="text-[10px] font-extrabold text-primary-blue uppercase tracking-[0.2em]">Data Ditemukan</span>
+                            <h3 id="displayNomor" class="text-3xl font-black text-gray-900 mt-1"></h3>
+                        </div>
+                        <h3 class="font-bold text-sm">Pendaftaran</h3>
+                        <p class="text-[10px] text-green-600 font-bold uppercase">Berkas Diterima</p>
+                    </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="border rounded-xl p-5 bg-white">
-            <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <i data-lucide="user" class="w-4 h-4 text-blue-600"></i> Informasi
-              Petugas
-            </h4>
-            <div class="text-sm space-y-3">
-              <div class="flex justify-between border-b pb-2">
-                <span class="text-gray-500">Petugas Ukur:</span>
-                <span id="displayPetugas" class="font-bold">-</span>
-              </div>
-              <div class="flex justify-between border-b pb-2">
-                <span class="text-gray-500">Kontak Petugas:</span>
-                <span id="displayKontakPetugas" class="font-bold text-blue-600"
-                  >-</span
-                >
-              </div>
-              <div class="flex justify-between border-b pb-2">
-                <span class="text-gray-500">Petugas Terakhir:</span>
-                <span id="displayPetugasTerakhir" class="font-medium">-</span>
-              </div>
-            </div>
-          </div>
+                    <div class="hidden md:block step-line active"></div>
 
-          <div class="border rounded-xl p-5 bg-red-50 border-red-100">
-            <h4 class="font-bold text-red-800 mb-4 flex items-center gap-2">
-              <i data-lucide="alert-circle" class="w-4 h-4 text-red-600"></i>
-              Kendala & Tindak Lanjut
-            </h4>
-            <div class="text-sm space-y-3">
-              <div>
-                <p class="text-red-700 font-bold mb-1">Kendala:</p>
-                <p id="displayKendala" class="text-gray-700 italic">
-                  Tidak ada kendala
-                </p>
-              </div>
-              <div>
-                <p class="text-gray-800 font-bold mb-1">Tindak Lanjut:</p>
-                <p id="displayTindakLanjut" class="text-gray-700">-</p>
-              </div>
-            </div>
-          </div>
-        </div>
+                    <div class="flex flex-col items-center text-center w-full md:w-1/3">
+                        <div id="iconUkur" class="w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3 transition-colors duration-500">
+                            <i data-lucide="map" class="w-6 h-6"></i>
+                        <div class="flex flex-col items-end">
+                            <span class="bg-blue-600 text-white px-4 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider">Sedang Diproses</span>
+                            <span class="text-[10px] text-gray-400 mt-2 italic font-medium">Terakhir diperbarui: Hari ini, 10:45 WIB</span>
+                        </div>
+                        <h3 class="font-bold text-sm">Jadwal Pengukuran</h3>
+                        <p id="tglUkur" class="text-[10px] text-gray-500 font-medium">-</p>
+                    </div>
 
-        <div class="mt-8 pt-6 border-t text-center">
-          <p class="text-[10px] text-gray-400">
-            Titik Koordinat: <span id="displayKoordinat">-</span>
-          </p>
-        </div>
-      </div>
-    </section>
+                    <div id="line2" class="hidden md:block step-line"></div>
 
-    <!-- Footer -->
-    <footer id="bantuan" class="bg-gray-900 text-gray-400 py-12 px-6">
-        <div class="container mx-auto max-w-6xl">
-            <div class="grid md:grid-cols-3 gap-12 mb-10 border-b border-gray-800 pb-10">
-                <div>
-                    <div class="flex items-center space-x-2 mb-6">
-                        <i data-lucide="map-pin" class="text-white w-6 h-6"></i>
-                        <span class="font-bold text-xl text-white">Cek Berkas</span>
-                    </div>
-                    <p class="text-sm leading-relaxed">
-                        Platform resmi digitalisasi layanan pengukuran tanah untuk memudahkan masyarakat dalam memantau kemajuan berkas mereka secara mandiri.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-6 text-lg">Hubungi Kami</h4>
-                    <p class="text-sm flex items-center space-x-2 mb-2">
-                        <i data-lucide="phone" class="w-4 h-4 text-primary-blue"></i>
-                        <span>(021) 1234-5678</span>
-                    </p>
-                    <p class="text-sm flex items-center space-x-2">
-                        <i data-lucide="mail" class="w-4 h-4 text-primary-blue"></i>
-                        <span>info@cekberkas.go.id</span>
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-6 text-lg">Media Sosial</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="hover:text-white transition"><i data-lucide="facebook"></i></a>
-                        <a href="#" class="hover:text-white transition"><i data-lucide="twitter"></i></a>
-                        <a href="#" class="hover:text-white transition"><i data-lucide="instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center text-xs">
-                &copy; 2024 Cek Berkas Pengukuran. Hak Cipta Dilindungi Undang-Undang.
-            </div>
-        </div>
-    </footer>
- <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/6281912169081" target="_blank"
-  class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full shadow-lg hover:scale-110 transition duration-300 flex flex-col items-center justify-center z-50">
+                    <div class="flex flex-col items-center text-center w-full md:w-1/3">
+                        <div id="iconSelesai" class="w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3 transition-colors duration-500">
+                            <i data-lucide="check-circle" class="w-6 h-6"></i>
+                    <!-- Timeline -->
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative">
+                        <!-- Step 1 -->
+                        <div class="flex flex-col items-center text-center w-full md:w-1/4">
+                            <div class="w-12 h-12 rounded-full bg-primary-blue text-white flex items-center justify-center mb-3 shadow-lg shadow-blue-200">
+                                <i data-lucide="check" class="w-6 h-6"></i>
+                            </div>
+                            <span class="font-bold text-sm">Pendaftaran</span>
+                            <span class="text-[10px] text-green-600 font-bold uppercase">Selesai</span>
+                        </div>
+                        <h3 class="font-bold text-sm">Hasil Akhir</h3>
+                        <p id="displayHasil" class="text-[10px] text-gray-400 font-medium">-</p>
+                    </div>
+                </div>
 
-  <!-- Ikon WhatsApp -->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-    class="w-7 h-7 fill-white mb-1">
-    <path d="M380.9 97.1C339-7.6 233.7-35.3 150.8 6.6 
-    67.9 48.5 27.7 146.6 64.5 232.5L7.1 392l165.2-52.7
-    c79.4 33.2 170.5-1.2 209.2-77.4 22.7-44.2 25.6-95.3
-    -1.6-137.8z"/>
-  </svg>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-xl p-6 bg-white shadow-sm">
+                        <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <i data-lucide="user" class="w-5 h-5 text-blue-600"></i> Informasi Petugas
+                        </h4>
+                        <div class="text-sm space-y-4">
+                            <div class="flex justify-between border-b border-gray-50 pb-2">
+                                <span class="text-gray-500">Petugas Ukur:</span>
+                                <span id="displayPetugas" class="font-bold text-gray-800">-</span>
+                        <div class="hidden md:block step-line active"></div>
+                        <!-- Step 2 -->
+                        <div class="flex flex-col items-center text-center w-full md:w-1/4">
+                            <div class="w-12 h-12 rounded-full bg-primary-blue text-white flex items-center justify-center mb-3 shadow-lg shadow-blue-200">
+                                <i data-lucide="check" class="w-6 h-6"></i>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-50 pb-2">
+                                <span class="text-gray-500">Kontak:</span>
+                                <span id="displayKontakPetugas" class="font-bold text-blue-600">-</span>
+                            <span class="font-bold text-sm">Pengukuran</span>
+                            <span class="text-[10px] text-green-600 font-bold uppercase">Selesai</span>
+                        </div>
+                        <div class="hidden md:block step-line active"></div>
+                        <!-- Step 3 -->
+                        <div class="flex flex-col items-center text-center w-full md:w-1/4">
+                            <div class="w-12 h-12 rounded-full border-4 border-primary-blue text-primary-blue flex items-center justify-center mb-3 bg-blue-50">
+                                <i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-50 pb-2">
+                                <span class="text-gray-500">Petugas Terakhir:</span>
+                                <span id="displayPetugasTerakhir" class="font-medium text-gray-700">-</span>
+                            <span class="font-bold text-sm text-primary-blue">Pengolahan Data</span>
+                            <span class="text-[10px] text-primary-blue font-bold uppercase italic">Berjalan</span>
+                        </div>
+                        <div class="hidden md:block step-line"></div>
+                        <!-- Step 4 -->
+                        <div class="flex flex-col items-center text-center w-full md:w-1/4">
+                            <div class="w-12 h-12 rounded-full border-4 border-gray-100 text-gray-300 flex items-center justify-center mb-3 bg-gray-50">
+                                <i data-lucide="lock" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-bold text-sm text-gray-300">Selesai</span>
+                            <span class="text-[10px] text-gray-300 uppercase">Menunggu</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Text CS -->
-  <span class="text-[10px] font-bold leading-none">CS</span>
-</a>
+                    <div class="border border-red-100 rounded-xl p-6 bg-red-50">
+                        <h4 class="font-bold text-red-800 mb-4 flex items-center gap-2">
+                            <i data-lucide="alert-circle" class="w-5 h-5 text-red-600"></i> Kendala & Tindak Lanjut
+                        </h4>
+                        <div class="text-sm space-y-4">
+    <!-- SECTION 3: CARA CEK -->
+    <section id="cara-cek" class="py-24 px-6 bg-[#F8F9FA]">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6 uppercase tracking-tight">Cara Melakukan Pengecekan</h2>
+                    <div class="w-16 h-1 bg-primary-blue mb-8"></div>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-5">
+                            <div class="bg-primary-blue w-12 h-12 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 text-white font-black text-xl italic">1</div>
+                            <div>
+                                <p class="text-red-700 font-bold text-[10px] uppercase mb-1">Masalah Lapangan:</p>
+                                <p id="displayKendala" class="text-gray-700 italic bg-white p-2 rounded border border-red-100">Tidak ada kendala</p>
+                                <h4 class="font-bold text-lg text-gray-900">Lihat Tanda Terima</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">Cari nomor berkas yang biasanya tertulis di bagian pojok kanan atas surat tanda terima pendaftaran Anda.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-5">
+                            <div class="bg-primary-blue w-12 h-12 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 text-white font-black text-xl italic">2</div>
+                            <div>
+                                <p class="text-gray-800 font-bold text-[10px] uppercase mb-1">Tindak Lanjut Petugas:</p>
+                                <p id="displayTindakLanjut" class="text-gray-700 font-medium">-</p>
+                                <h4 class="font-bold text-lg text-gray-900">Input Nomor Berkas</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">Masukkan nomor tersebut secara lengkap di kolom pencarian di atas tanpa salah karakter.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-5">
+                            <div class="bg-primary-blue w-12 h-12 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 text-white font-black text-xl italic">3</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-gray-900">Dapatkan Status</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">Klik tombol cari dan sistem akan menarik data terbaru langsung dari pusat data layanan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <script>
-      // Inisialisasi Icon
-      lucide.createIcons();
+                <div class="mt-8 pt-6 border-t text-center">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                        Titik Koordinat: <span id="displayKoordinat" class="text-gray-600">-</span>
+                    </p>
+                <div class="md:w-1/2">
+                    <div class="bg-white p-10 rounded-2xl shadow-xl border-t-4 border-primary-blue">
+                        <h4 class="font-bold mb-6 text-xl text-primary-blue flex items-center gap-3">
+                            <i data-lucide="info"></i> Pusat Informasi
+                        </h4>
+                        <div class="bg-blue-50 p-6 rounded-xl italic text-sm text-gray-700 leading-loose border-l-4 border-primary-blue mb-6">
+                            "Layanan ini merupakan bentuk komitmen kami dalam keterbukaan informasi publik sesuai standar Kementerian Agraria dan Tata Ruang/Badan Pertanahan Nasional."
+                        </div>
+                        <p class="text-xs text-gray-400 font-medium">* Update data dilakukan setiap pukul 09:00 dan 16:00 WIB.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      // GANTI INI DENGAN URL API SHEETY KAMU
-      const API_URL =
-        "https://api.sheety.co/faa1bfb669e83efa1c804947c1197ed9/gercepKotaBitung/sheet7";
+    <footer id="bantuan" class="bg-gray-900 text-gray-400 py-16 px-6">
+    <!-- SECTION 4: BANTUAN & FOOTER -->
+    <footer id="bantuan" class="bg-[#002B5B] text-gray-300 pt-20 pb-10 px-6 border-t-4 border-yellow-500">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-3 gap-12 mb-10 border-b border-gray-800 pb-10">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <i data-lucide="map-pin" class="text-white w-6 h-6"></i>
+                        <span class="font-bold text-xl text-white uppercase">Cek Berkas</span>
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Logo_BPN-Kementerian_ATR_%282017%29.png" alt="Logo BPN" class="h-12 w-auto brightness-0 invert">
+                        <div class="flex flex-col border-l border-gray-500 pl-3">
+                            <span class="font-bold text-xl text-white">SISTEM BERKAS</span>
+                            <span class="text-[9px] tracking-widest text-gray-400 font-bold">PUSAT DATA PENGUKURAN</span>
+                        </div>
+                    </div>
+                    <p class="text-xs leading-relaxed">
+                        Platform resmi digitalisasi layanan pengukuran tanah untuk memudahkan masyarakat dalam memantau kemajuan berkas mereka secara mandiri dan transparan.
+                    <p class="max-w-sm text-xs leading-relaxed mb-8 font-medium">
+                        Melayani pendaftaran, pengukuran, hingga penerbitan dokumen pertanahan secara profesional dan terintegrasi di seluruh Indonesia.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest">Hubungi Kami</h4>
+                    <p class="text-sm flex items-center space-x-3 mb-3">
+                        <i data-lucide="phone" class="w-4 h-4 text-primary-blue"></i>
+                        <span>(021) 1234-5678</span>
+                    </p>
+                    <p class="text-sm flex items-center space-x-3">
+                        <i data-lucide="mail" class="w-4 h-4 text-primary-blue"></i>
+                        <span>info@cekberkas.go.id</span>
+                    </p>
+                    <h5 class="text-white font-bold mb-6 uppercase text-sm tracking-widest">Menu Utama</h5>
+                    <ul class="space-y-4 text-xs font-semibold">
+                        <li><a href="#beranda" class="hover:text-yellow-400 transition">Beranda</a></li>
+                        <li><a href="#layanan" class="hover:text-yellow-400 transition">Lacak Berkas</a></li>
+                        <li><a href="#cara-cek" class="hover:text-yellow-400 transition">Panduan Layanan</a></li>
+                        <li><a href="#bantuan" class="hover:text-yellow-400 transition">Pusat Bantuan</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest">Media Sosial</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-white transition"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="hover:text-white transition"><i data-lucide="twitter"></i></a>
+                        <a href="#" class="hover:text-white transition"><i data-lucide="instagram"></i></a>
+                    </div>
+                    <h5 class="text-white font-bold mb-6 uppercase text-sm tracking-widest">Informasi Kontak</h5>
+                    <ul class="space-y-5 text-xs">
+                        <li class="flex items-start space-x-3">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-yellow-400 mt-0.5"></i>
+                            <span>Kantor Pertanahan Wilayah Pusat, Jakarta Pusat</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="phone" class="w-4 h-4 text-yellow-400"></i>
+                            <span>Hotline: (021) 8888-0000</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="mail" class="w-4 h-4 text-yellow-400"></i>
+                            <span>pengaduan@bpn.go.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-[10px] uppercase tracking-widest font-bold">
+                &copy; 2024 Cek Berkas Pengukuran. Hak Cipta Dilindungi Undang-Undang.
+            <div class="text-center pt-10 border-t border-white/10 text-[10px] font-bold tracking-widest opacity-50 uppercase">
+                &copy; 2024 Kementerian Agraria dan Tata Ruang / Badan Pertanahan Nasional.
+            </div>
+        </div>
+    </footer>
 
-      async function handleSearch() {
-        const inputVal = document.getElementById("berkasInput").value.trim();
-        const btn = document.getElementById("btnCari");
-        const errorText = document.getElementById("errorText");
-        const resultSection = document.getElementById("resultSection");
+    <a href="https://wa.me/6281912169081" target="_blank" 
+       class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full shadow-2xl hover:scale-110 transition duration-300 flex items-center justify-center z-50 border-4 border-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+        </svg>
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/628123456789" target="_blank" class="fixed bottom-8 right-8 bg-[#25D366] text-white p-4 rounded-xl shadow-2xl hover:scale-105 transition duration-300 flex items-center space-x-3 z-50 border-2 border-white">
+        <i data-lucide="message-square"></i>
+        <span class="font-bold hidden md:inline uppercase text-xs tracking-wider">Layanan Bantuan</span>
+    </a>
 
-        if (!inputVal) return;
+    <script>
+        lucide.createIcons();
 
-        // Loading state
-        btn.innerHTML = "Mencari...";
-        btn.disabled = true;
+        const API_URL = "https://api.sheety.co/faa1bfb669e83efa1c804947c1197ed9/gercepKotaBitung/sheet7";
 
-        try {
-          const response = await fetch(API_URL);
-          const json = await response.json();
-          const data = json.sheet7;
+        async function handleSearch() {
+            const inputVal = document.getElementById("berkasInput").value.trim();
+            const btn = document.getElementById("btnCari");
+            const errorText = document.getElementById("errorText");
+            const resultSection = document.getElementById("resultSection");
 
-          // Cari data berdasarkan kolom NO. BERKAS (di JS jadi noBerkas)
-          const findData = data.find(
-            (item) => String(item.noBerkas) === inputVal,
-          );
+            if (!inputVal) return;
 
-          if (findData) {
-            errorText.classList.add("hidden");
-            resultSection.classList.remove("hidden");
+            btn.innerHTML = `<span class="animate-spin mr-2">⏳</span> Mencari...`;
+            btn.disabled = true;
 
-            // Isi Data ke HTML
-            document.getElementById("displayNama").textContent =
-              findData.namaPemohon || "-";
-            document.getElementById("displayNomor").textContent =
-              "No. Berkas: " + findData.noBerkas;
-            document.getElementById("displayKelurahan").textContent =
-              findData.kelurahan || "-";
-            document.getElementById("displayLayanan").textContent =
-              findData.jenisLayanan || "-";
-            document.getElementById("displayPosisi").textContent =
-              findData.posisiBerkas || "Sedang Diproses";
-            document.getElementById("displayEstimasi").textContent =
-              findData.estimasiBerkasSelesaiDiSeksiPengukuran || "-";
+            try {
+                const response = await fetch(API_URL);
+                const json = await response.json();
+                const data = json.sheet7;
+        function handleSearch() {
+            const input = document.getElementById('berkasInput');
+            const res = document.getElementById('resultSection');
+            const err = document.getElementById('errorText');
+            const display = document.getElementById('displayNomor');
 
-            document.getElementById("displayPetugas").textContent =
-              findData.namaPetugasUkur || "Belum Ditentukan";
-            document.getElementById("displayKontakPetugas").textContent =
-              findData.kontakPetugasUkur || "-";
-            document.getElementById("displayPetugasTerakhir").textContent =
-              findData.petugasTerakhir || "-";
+                const findData = data.find(
+                    (item) => String(item.noBerkas).toLowerCase() === inputVal.toLowerCase()
+                );
+            const safePattern = /^[a-zA-Z0-9\/]+$/;
 
-            document.getElementById("displayKendala").textContent =
-              findData.kendala || "Tidak ada kendala";
-            document.getElementById("displayTindakLanjut").textContent =
-              findData.tindakLanjut || "-";
-            document.getElementById("displayKoordinat").textContent =
-              findData.titikKoordinat || "-";
+                if (findData) {
+                    errorText.classList.add("hidden");
+                    resultSection.classList.remove("hidden");
+                    
+                    // Trigger animasi muncul
+                    setTimeout(() => {
+                        resultSection.classList.remove("opacity-0", "translate-y-4");
+                        resultSection.classList.add("opacity-100", "translate-y-0");
+                    }, 100);
 
-            // Timeline
-            document.getElementById("tglUkur").textContent =
-              findData.jadwalPengukuran || "Belum Terjadwal";
-            document.getElementById("displayHasil").textContent =
-              findData.hasilAkhir || "Belum Terbit";
+                    // Map Data
+                    document.getElementById("displayNama").textContent = findData.namaPemohon || "-";
+                    document.getElementById("displayNomor").textContent = "No. Berkas: " + findData.noBerkas;
+                    document.getElementById("displayKelurahan").textContent = findData.kelurahan || "-";
+                    document.getElementById("displayLayanan").textContent = findData.jenisLayanan || "-";
+                    document.getElementById("displayPosisi").textContent = findData.posisiBerkas || "Sedang Diproses";
+                    document.getElementById("displayEstimasi").textContent = findData.estimasiBerkasSelesaiDiSeksiPengukuran || "-";
+                    document.getElementById("displayPetugas").textContent = findData.namaPetugasUkur || "Belum Ditentukan";
+                    document.getElementById("displayKontakPetugas").textContent = findData.kontakPetugasUkur || "-";
+                    document.getElementById("displayPetugasTerakhir").textContent = findData.petugasTerakhir || "-";
+                    document.getElementById("displayKendala").textContent = findData.kendala || "Tidak ada kendala";
+                    document.getElementById("displayTindakLanjut").textContent = findData.tindakLanjut || "-";
+                    document.getElementById("displayKoordinat").textContent = findData.titikKoordinat || "-";
+                    document.getElementById("tglUkur").textContent = findData.jadwalPengukuran || "Belum Terjadwal";
+                    document.getElementById("displayHasil").textContent = findData.hasilAkhir || "Belum Terbit";
 
-            // Reset Timeline Icons
-            resetIcons();
+                    resetIcons();
 
-            // Update Timeline Icons jika data tersedia
-            if (findData.jadwalPengukuran) {
-              const iconUkur = document.getElementById("iconUkur");
-              iconUkur.classList.remove("border-gray-200", "text-gray-300");
-              iconUkur.classList.add(
-                "bg-primary-blue",
-                "text-white",
-                "border-primary-blue",
-              );
-              document.getElementById("line2").classList.add("active");
-            }
+                    // Update UI Timeline
+                    if (findData.jadwalPengukuran) {
+                        const iconUkur = document.getElementById("iconUkur");
+                        iconUkur.classList.replace("border-gray-200", "bg-primary-blue");
+                        iconUkur.classList.replace("text-gray-300", "text-white");
+                        iconUkur.classList.add("border-primary-blue");
+                        document.getElementById("line2").classList.add("active");
+                    }
 
-            if (findData.hasilAkhir) {
-              const iconSelesai = document.getElementById("iconSelesai");
-              iconSelesai.classList.remove("border-gray-200", "text-gray-300");
-              iconSelesai.classList.add(
-                "bg-green-600",
-                "text-white",
-                "border-green-600",
-              );
-            }
+                    if (findData.hasilAkhir) {
+                        const iconSelesai = document.getElementById("iconSelesai");
+                        iconSelesai.classList.replace("border-gray-200", "bg-green-600");
+                        iconSelesai.classList.replace("text-gray-300", "text-white");
+                        iconSelesai.classList.add("border-green-600");
+                    }
 
-            resultSection.scrollIntoView({ behavior: "smooth" });
-          } else {
-            errorText.classList.remove("hidden");
-            resultSection.classList.add("hidden");
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          alert("Gagal mengambil data. Periksa koneksi atau URL API.");
-        } finally {
-          btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Cari Berkas</span>`;
-          btn.disabled = false;
-          lucide.createIcons();
-        }
-      }
+                    resultSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                } else {
+                    errorText.classList.remove("hidden");
+                    resultSection.classList.add("hidden");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Gagal mengambil data. Periksa koneksi atau URL API.");
+            } finally {
+                btn.innerHTML = `<i data-lucide="search" class="w-5 h-5"></i><span>Cari Berkas</span>`;
+                btn.disabled = false;
+                lucide.createIcons();
+            if (input.value.trim() !== "" && safePattern.test(input.value)) {
+                err.classList.add('hidden');
+                display.innerText = input.value;
+                
+                res.classList.remove('hidden');
+                setTimeout(() => {
+                    res.classList.remove('opacity-0', 'translate-y-4');
+                    res.classList.add('opacity-100', 'translate-y-0');
+                    res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            } else {
+                err.classList.remove('hidden');
+                res.classList.add('hidden', 'opacity-0', 'translate-y-4');
+            }
+        }
 
-      function resetIcons() {
-        const iconUkur = document.getElementById("iconUkur");
-        const iconSelesai = document.getElementById("iconSelesai");
-        const line2 = document.getElementById("line2");
+        function resetIcons() {
+            const iconUkur = document.getElementById("iconUkur");
+            const iconSelesai = document.getElementById("iconSelesai");
+            const line2 = document.getElementById("line2");
 
-        iconUkur.className =
-          "w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3";
-        iconSelesai.className =
-          "w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3";
-        line2.classList.remove("active");
-      }
+            iconUkur.className = "w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3 transition-colors duration-500";
+            iconSelesai.className = "w-12 h-12 rounded-full border-4 flex items-center justify-center border-gray-200 text-gray-300 mb-3 transition-colors duration-500";
+            line2.classList.remove("active");
+        }
 
-      // Support Enter Key
-      document
-        .getElementById("berkasInput")
-        .addEventListener("keypress", function (e) {
-          if (e.key === "Enter") handleSearch();
-        });
-    </script>
-  </body>
-</html>
+        document.getElementById("berkasInput").addEventListener("keypress", function (e) {
+            if (e.key === "Enter") handleSearch();
+        document.getElementById('berkasInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+    </script>
