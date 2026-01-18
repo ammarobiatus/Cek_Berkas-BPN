@@ -1,11 +1,7 @@
-<!DOCTYPE html> <!-- Inisiasi -->
-<html lang="id">
+<!DOCTYPE html> <html lang="id">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- tampilan responsif -->
-    <title>Cek Berkas Pengukuran | Gercep Kota Bitung</title> <!-- Judul Tab di Brwoser -->
-        <script src="https://cdn.tailwindcss.com"></script> <!-- Memanggil Tailwind css -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Cek Berkas Pengukuran | Gercep Kota Bitung</title> <script src="https://cdn.tailwindcss.com"></script> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/lucide@latest"></script> 
     <style>
         body {
@@ -31,200 +27,138 @@
 </head>
 <body class="bg-blue-50 text-gray-800">
 
-    <header class="bg-white-100 border-b sticky top-0 z-50"> <!-- alternatif, pakai bg-gray-100 -->
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center"> <!-- Wadah, batas lebar konten -->
-            <div class="flex items-center space-x-2"> <!-- Pengelompokan icon & teks -->
-                <i data-lucide="map-pin" class="text-primary-blue w-8 h-8"></i>
+    <header class="bg-white border-b"> 
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center"> <div class="flex items-center space-x-2"> <i data-lucide="map-pin" class="text-primary-blue w-8 h-8"></i>
                 <span class="font-bold text-2xl tracking-tight text-primary-blue">Cek Berkas</span>
             </div>
-         <nav class="hidden md:flex space-x-8 font-medium">
-  <a href="#beranda"
-   class="text-primary-blue font-semibold border-b-2 border-primary-blue pb-1">Beranda</a> <!-- Menu -->
-
-<!-- Pengaturan Menu -->
-<a href="#layanan-pencarian"
-   class="text-primary-blue font-semibold border-b-2 border-primary-blue pb-1">
-   Layanan Pencarian
-</a>
-
-<a href="#cara-cek" class="hover:text-primary-blue transition">Cara Cek</a>
-<a href="#bantuan" class="hover:text-primary-blue transition">Bantuan</a>
-
-</nav>
-
+            <nav class="hidden md:flex space-x-8 font-medium">
+                <a href="#beranda" class="text-primary-blue font-semibold border-b-2 border-primary-blue pb-1">Beranda</a> 
+                <a href="#layanan-pencarian" class="text-primary-blue font-semibold border-b-2 border-primary-blue pb-1">Layanan Pencarian</a>
+                <a href="#cara-cek" class="hover:text-primary-blue transition">Cara Cek</a>
+                <a href="#bantuan" class="hover:text-primary-blue transition">Bantuan</a>
+            </nav>
         </div>
     </header>
 
-  <section id="beranda" class="bg-white py-24 px-6">
+    <section id="beranda" class="bg-white py-24 px-6">
+        <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight text-gray-900 mb-6">
+                    Pantau Status<br /> 
+                    <span class="text-primary-blue">Berkas Pengukuran</span><br />
+                    Secara Transparan.
+                </h1>
+                <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                    Akses informasi posisi berkas Anda secara real-time.
+                    Kami berkomitmen memberikan layanan pertanahan
+                    yang cepat, akurat, dan dapat dipercaya.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#layanan-pencarian" class="bg-primary-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Mulai Pencarian
+                    </a>
+                    <a href="#cara-cek" class="border border-primary-blue text-primary-blue px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+                        Cara Penggunaan
+                    </a>
+                </div>
+            </div>
 
-  <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center">
-
-    <div>
-      <h1 class="text-4xl md:text-5xl font-bold leading-tight text-gray-900 mb-6">
-        Pantau Status<br /> <!-- Ukuran tulisan, & fungsi br -->
-        <span class="text-primary-blue">Berkas Pengukuran</span><br />
-        Secara Transparan.
-      </h1>
-
-      <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-        Akses informasi posisi berkas Anda secara real-time.
-        Kami berkomitmen memberikan layanan pertanahan
-        yang cepat, akurat, dan dapat dipercaya.
-      </p>
-
-    <div class="flex flex-wrap gap-4">
-  <a href="#layanan-pencarian"
-     class="bg-primary-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-    Mulai Pencarian
-  </a>
-
-  <a href="#cara-cek"
-     class="border border-primary-blue text-primary-blue px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
-    Cara Penggunaan
-  </a>
-</div>
-
-    </div>
-
-    <!-- KANAN : LOGO INFO -->
-    <div class="relative flex justify-center">    <!-- Pengaturan jarak , start-->
-      <div class="bg-blue-50 rounded-3xl p-10 w-full max-w-md shadow-sm">
-        <div class="flex items-center gap-3 mb-6">
-          <i data-lucide="shield-check" class="w-6 h-6 text-primary-blue"></i>
-          <span class="font-semibold text-gray-700">Kementerian ATR/BPN</span>
+            <div class="relative flex justify-center">
+                <div class="bg-blue-50 rounded-3xl p-10 w-full max-w-md shadow-sm">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="shield-check" class="w-6 h-6 text-primary-blue"></i>
+                        <span class="font-semibold text-gray-700">Kementerian ATR/BPN</span>
+                    </div>
+                    <div class="bg-white rounded-xl p-5 flex items-center gap-3 shadow">
+                        <div class="w-8 h-8 rounded-full bg-primary-blue flex items-center justify-center text-white">
+                            <i data-lucide="check"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-bold uppercase">Layanan Resmi</p>
+                            <p class="font-semibold text-gray-800 text-sm">Terintegrasi Sistem Pusat</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="bg-white rounded-xl p-5 flex items-center gap-3 shadow">
-          <div class="w-8 h-8 rounded-full bg-primary-blue flex items-center justify-center text-white">
-            <i data-lucide="check"></i>
-          </div>
-          <div>
-            <p class="text-xs text-gray-400 font-bold uppercase">Layanan Resmi</p>
-            <p class="font-semibold text-gray-800 text-sm">
-              Terintegrasi Sistem Pusat
+    <section id="layanan-pencarian" class="bg-[#0056b3] text-white py-24 px-6">
+        <div class="container mx-auto flex flex-col items-center justify-center text-center space-y-6">
+            <div class="text-white space-y-2">
+                <h1 class="text-4xl font-bold">Lacak Berkas Pengukuran Anda</h1>
+                <p class="opacity-90 max-w-2xl mx-auto">
+                    Layanan transparansi untuk melacak posisi berkas, petugas ukur, hingga kendala lapangan secara real-time.
+                </p>
+            </div>
+
+            <div class="bg-white p-2 rounded-full shadow-lg flex items-center w-full max-w-3xl">
+                <input 
+                    id="berkasInput" 
+                    type="text" 
+                    placeholder="7183/2025" 
+                    class="flex-grow px-8 py-4 text-gray-600 outline-none rounded-full text-lg"
+                />
+                <button 
+                    id="btnCari"
+                    onclick="handleSearch()" 
+                    class="bg-[#0d6efd] hover:bg-[#0a58ca] text-white px-10 py-4 rounded-full font-semibold transition flex items-center space-x-2 shrink-0"
+                >
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                    <span>Cari Berkas</span>
+                </button>
+            </div>
+            <p id="errorText" class="text-red-300 mt-4 text-sm hidden">
+                Nomor berkas tidak ditemukan atau salah input.
             </p>
-          </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-  </div>
-</section>
-
-      <section id="layanan-pencarian" class="bg-[#0056b3] text-white py-24 px-6">
-   <div class="bg-[#0056b3] p-20 flex flex-col items-center justify-center text-center space-y-6">
-    
-    <div class="text-white space-y-2">
-        <h1 class="text-4xl font-bold">Lacak Berkas Pengukuran Anda</h1>
-        <p class="opacity-90 max-w-2xl mx-auto">
-            Layanan transparansi untuk melacak posisi berkas, petugas ukur, hingga kendala lapangan secara real-time.
-        </p>
-    </div>
-
-    <div class="bg-white p-2 rounded-full shadow-lg flex items-center w-full max-w-3xl">
-        <input 
-            id="berkasInput" 
-            type="text" 
-            placeholder="7183/2025" 
-            class="flex-grow px-8 py-4 text-gray-600 outline-none rounded-full text-lg"
-        />
-        <button 
-            onclick="handleSearch()" 
-            class="bg-[#0d6efd] hover:bg-[#0a58ca] text-white px-10 py-4 rounded-full font-semibold transition flex items-center space-x-2 shrink-0"
-        >
-            <i data-lucide="search" class="w-5 h-5"></i>
-            <span>Cari Berkas</span>
-        </button>
-    </div>
-
-</div>
-
-        <p id="errorText" class="text-red-300 mt-4 text-sm hidden">
-            Nomor berkas tidak ditemukan atau salah input.
-        </p>
-
-    </div>
-</section>
     <section id="cara-cek" class="bg-white py-24 px-6">
-  <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-start">
+        <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-start">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                    Cara Melakukan <br />
+                    <span class="text-primary-blue">Pengecekan</span>
+                </h2>
+                <div class="w-16 h-1 bg-primary-blue mb-10"></div>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-primary-blue text-white font-bold flex items-center justify-center">1</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">Lihat Tanda Terima</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Cari nomor berkas yang biasanya tertulis di bagian pojok kanan atas surat tanda terima pendaftaran Anda.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-primary-blue text-white font-bold flex items-center justify-center">2</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">Input Nomor Berkas</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Masukkan nomor tersebut secara lengkap di kolom pencarian di atas tanpa salah karakter.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-xl bg-primary-blue text-white font-bold flex items-center justify-center">3</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">Dapatkan Status</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">Klik tombol cari dan sistem akan menarik data terbaru langsung dari pusat data layanan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- KIRI : LANGKAH -->
-    <div>
-      <h2 class="text-3xl font-bold text-gray-900 mb-4">
-        Cara Melakukan <br />
-        <span class="text-primary-blue">Pengecekan</span>
-      </h2>
-      <div class="w-16 h-1 bg-primary-blue mb-10"></div>
-
-      <div class="space-y-8">
-
-        <!-- STEP 1 -->
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 rounded-xl bg-primary-blue text-white font-bold flex items-center justify-center">
-            1
-          </div>
-          <div>
-            <h4 class="font-bold text-gray-800 mb-1">Lihat Tanda Terima</h4>
-            <p class="text-sm text-gray-600 leading-relaxed">
-              Cari nomor berkas yang biasanya tertulis di bagian pojok kanan atas
-              surat tanda terima pendaftaran Anda.
-            </p>
-          </div>
+            <div class="bg-white border rounded-2xl shadow-md p-8 relative">
+                <div class="flex items-center gap-3 mb-6 text-primary-blue font-bold">
+                    <i data-lucide="info" class="w-5 h-5"></i>
+                    <span>Pusat Informasi</span>
+                </div>
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 text-sm text-gray-700 leading-relaxed italic">
+                    “Layanan ini merupakan bentuk komitmen kami dalam keterbukaan informasi publik sesuai standar Kementerian Agraria dan Tata Ruang / Badan Pertanahan Nasional.”
+                </div>
+                <p class="text-[11px] text-gray-400 mt-4">* Update data dilakukan setiap pukul 09:00 dan 16:00 WIB.</p>
+            </div>
         </div>
-
-        <!-- STEP 2 -->
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 rounded-xl bg-primary-blue text-white font-bold flex items-center justify-center">
-            2
-          </div>
-          <div>
-            <h4 class="font-bold text-gray-800 mb-1">Input Nomor Berkas</h4>
-            <p class="text-sm text-gray-600 leading-relaxed">
-              Masukkan nomor tersebut secara lengkap di kolom pencarian di atas
-              tanpa salah karakter.
-            </p>
-          </div>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="flex items-start gap-4">
-          <div class="w-10 h-10 rounded-xl bg-primary-blue text-white font-bold flex items-center justify-center">
-            3
-          </div>
-          <div>
-            <h4 class="font-bold text-gray-800 mb-1">Dapatkan Status</h4>
-            <p class="text-sm text-gray-600 leading-relaxed">
-              Klik tombol cari dan sistem akan menarik data terbaru langsung
-              dari pusat data layanan.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- KANAN : PUSAT INFORMASI -->
-    <div class="bg-white border rounded-2xl shadow-md p-8 relative">
-      <div class="flex items-center gap-3 mb-6 text-primary-blue font-bold">
-        <i data-lucide="info" class="w-5 h-5"></i>
-        <span>Pusat Informasi</span>
-      </div>
-
-      <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 text-sm text-gray-700 leading-relaxed italic">
-        “Layanan ini merupakan bentuk komitmen kami dalam keterbukaan
-        informasi publik sesuai standar Kementerian Agraria dan Tata Ruang /
-        Badan Pertanahan Nasional.”
-      </div>
-
-      <p class="text-[11px] text-gray-400 mt-4">
-        * Update data dilakukan setiap pukul 09:00 dan 16:00 WIB.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-
+    </section>
 
     <section id="resultSection" class="py-16 px-6 bg-white hidden">
         <div class="container mx-auto max-w-5xl border rounded-2xl p-8 shadow-sm">
@@ -316,50 +250,38 @@
     </section>
 
     <footer id="bantuan" class="bg-[#0f172a] text-gray-400 py-12 px-6">
-    <div class="container mx-auto max-w-6xl">
-        <div class="grid md:grid-cols-3 gap-12 mb-10 border-b border-gray-800 pb-10">
-
-            <!-- KOLOM KIRI -->
-            <div class="text-left">
-                <div class="flex items-center space-x-2 mb-6 text-white font-bold text-xl">
-                    <i data-lucide="map-pin" class="w-6 h-6"></i>
-                    <span>Cek Berkas</span>
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-3 gap-12 mb-10 border-b border-gray-800 pb-10">
+                <div class="text-left">
+                    <div class="flex items-center space-x-2 mb-6 text-white font-bold text-xl">
+                        <i data-lucide="map-pin" class="w-6 h-6"></i>
+                        <span>Cek Berkas</span>
+                    </div>
+                    <p class="text-sm leading-relaxed">Platform resmi digitalisasi layanan pengukuran tanah untuk memudahkan masyarakat dalam memantau kemajuan berkas mereka secara mandiri.</p>
                 </div>
-                <p class="text-sm leading-relaxed">
-                    Platform resmi digitalisasi layanan pengukuran tanah untuk memudahkan masyarakat dalam memantau kemajuan berkas mereka secara mandiri.
-                </p>
-            </div>
-
-            <!-- KOLOM TENGAH -->
-            <div class="text-center">
-                <h4 class="text-white font-bold mb-6">Hubungi Kami</h4>
-                <p class="text-sm mb-2 flex justify-center items-center gap-2">
-                    <i data-lucide="phone" class="w-4 h-4 text-primary-blue"></i>
-                    (021) 1234-5678
-                </p>
-                <p class="text-sm flex justify-center items-center gap-2">
-                    <i data-lucide="mail" class="w-4 h-4 text-primary-blue"></i>
-                    info@cekberkas.go.id
-                </p>
-            </div>
-
-            <!-- KOLOM KANAN -->
-            <div class="text-right">
-                <h4 class="text-white font-bold mb-6">Media Sosial</h4>
-                <div class="flex justify-end space-x-4">
-                    <i data-lucide="facebook" class="hover:text-white cursor-pointer"></i>
-                    <i data-lucide="twitter" class="hover:text-white cursor-pointer"></i>
-                    <i data-lucide="instagram" class="hover:text-white cursor-pointer"></i>
+                <div class="text-center">
+                    <h4 class="text-white font-bold mb-6">Hubungi Kami</h4>
+                    <p class="text-sm mb-2 flex justify-center items-center gap-2">
+                        <i data-lucide="phone" class="w-4 h-4 text-primary-blue"></i> (021) 1234-5678
+                    </p>
+                    <p class="text-sm flex justify-center items-center gap-2">
+                        <i data-lucide="mail" class="w-4 h-4 text-primary-blue"></i> info@cekberkas.go.id
+                    </p>
+                </div>
+                <div class="text-right">
+                    <h4 class="text-white font-bold mb-6">Media Sosial</h4>
+                    <div class="flex justify-end space-x-4">
+                        <i data-lucide="facebook" class="hover:text-white cursor-pointer"></i>
+                        <i data-lucide="twitter" class="hover:text-white cursor-pointer"></i>
+                        <i data-lucide="instagram" class="hover:text-white cursor-pointer"></i>
+                    </div>
                 </div>
             </div>
-
+            <div class="text-center text-[10px] uppercase tracking-widest">
+                &copy; 2024 Cek Berkas Pengukuran. Hak Cipta Dilindungi Undang-Undang.
+            </div>
         </div>
-
-        <div class="text-center text-[10px] uppercase tracking-widest">
-            &copy; 2024 Cek Berkas Pengukuran. Hak Cipta Dilindungi Undang-Undang.
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <script>
         lucide.createIcons();
