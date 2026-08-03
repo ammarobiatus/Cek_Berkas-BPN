@@ -42,11 +42,24 @@
       transition: padding 0.3s, background 0.3s;
     }
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--gold);
       letter-spacing: 2px;
+    }
+    .sparkle-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: currentColor;
+      animation: sparkleAnim 3s infinite ease-in-out;
+    }
+    @keyframes sparkleAnim {
+      0%, 100% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 2px var(--gold)); opacity: 1; }
+      50%      { transform: scale(1.15) rotate(15deg); filter: drop-shadow(0 0 8px var(--gold-light)); opacity: 0.9; }
     }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
@@ -515,7 +528,7 @@
       display: grid; grid-template-columns: 1.5fr 1fr 1fr;
       gap: 3rem; margin-bottom: 2.5rem;
     }
-    .footer-brand .nav-logo { font-size: 1.8rem; display: block; margin-bottom: 0.8rem; }
+    .footer-brand .nav-logo { font-size: 1.4rem; display: flex; align-items: center; margin-bottom: 0.8rem; }
     .footer-brand p { color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.7; }
     .footer-col h5 { color: var(--gold); font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
@@ -578,7 +591,12 @@
 
   <!-- NAVBAR -->
   <nav>
-    <span class="nav-logo">&#10022; CAHAYA STORE.ID</span>
+    <span class="nav-logo">
+      <svg class="sparkle-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 1L14.59 9.41L23 12L14.59 14.59L12 23L9.41 14.59L1 12L9.41 9.41L12 1Z" />
+      </svg>
+      CAHAYA STORE.ID
+    </span>
     <ul class="nav-links">
       <li><a href="#produk">Produk</a></li>
       <li><a href="#keunggulan">Keunggulan</a></li>
@@ -920,10 +938,11 @@
           <label for="model">Model Selempang *</label>
           <select id="model">
             <option value="">-- Pilih Model --</option>
-            <option value="classic-gold">Classic Gold – Rp 75.000</option>
-            <option value="navy">Navy Exclusive – Rp 85.000</option>
-            <option value="emerald">Emerald Prestige – Rp 95.000</option>
-            <option value="purple">Royal Purple – Rp 110.000</option>
+            <option value="bludru-polos">Bludru Polos – Rp 54.900</option>
+            <option value="motif-batik">Motif Batik – Rp 59.500</option>
+            <option value="premium-pita">Premium PITA – Rp 58.900</option>
+            <option value="arab-1-lapis">Arab 1 Lapis – Rp 50.000</option>
+            <option value="tambahan-layer">Tambahan Layer – Rp 10.000</option>
           </select>
         </div>
         <div class="form-group">
@@ -946,16 +965,22 @@
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="nav-logo">&#10022; CAHAYA STORE.ID</span>
+        <span class="nav-logo">
+          <svg class="sparkle-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1L14.59 9.41L23 12L14.59 14.59L12 23L9.41 14.59L1 12L9.41 9.41L12 1Z" />
+          </svg>
+          CAHAYA STORE.ID
+        </span>
         <p>Selempang wisuda premium terpercaya. Kami hadir untuk menjadikan momen wisudamu semakin berkesan dan tak terlupakan.</p>
       </div>
       <div class="footer-col">
         <h5>Produk</h5>
         <ul>
-          <li><a href="#produk">Classic Gold</a></li>
-          <li><a href="#produk">Navy Exclusive</a></li>
-          <li><a href="#produk">Emerald Prestige</a></li>
-          <li><a href="#produk">Royal Purple</a></li>
+          <li><a href="#produk">Bludru Polos</a></li>
+          <li><a href="#produk">Motif Batik</a></li>
+          <li><a href="#produk">Premium PITA</a></li>
+          <li><a href="#produk">Arab 1 Lapis</a></li>
+          <li><a href="#produk">Tambahan Layer</a></li>
         </ul>
       </div>
       <div class="footer-col">
